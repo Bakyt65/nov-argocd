@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: 'https://charts.bitnami.com/bitnami'           # ✅ still using Bitnami charts
     chart: wordpress                                        # 👈 changed nginx -> wordpress
-    targetRevision: 24.2.2                                  # 👈 updated chart version
+    targetRevision: 18.0.0                                  # 👈 updated chart version
     helm:
       values: |
         wordpressUsername: user
