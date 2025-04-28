@@ -1,19 +1,27 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nginx-{{ .Values.global.env }}
+  name: wordpress-{{ .Values.global.env }}          # 👈 changed nginx -> wordpress
   namespace: argocd
 spec:
   destination:
-    namespace: nginx-server-{{ .Values.global.env }}
+    namespace: wordpress-server-{{ .Values.global.env }}    # 👈 changed nginx-server -> wordpress-server
     server: 'https://kubernetes.default.svc'
   source:
-    repoURL: 'https://charts.bitnami.com/bitnami'
-    chart: nginx
-    targetRevision: 17.1.0
+    repoURL: 'https://charts.bitnami.com/bitnami'           # ✅ still using Bitnami charts
+    chart: wordpress                                        # 👈 changed nginx -> wordpress
+    targetRevision: 18.0.0                                  # 👈 updated chart version
     helm:
-      values: |                   # Helm values need to be under the "helm" section
-        replicaCount: 2
+      values: |
+        wordpressUsername: user
+        wordpressPassword: password
+        mariadb:
+          enabled: true
+          auth:
+            rootPassword: rootpassword
+            database: bitnami_wordpress
+            username: bn_wordpress
+            password: wordpresspassword
         service:
           type: LoadBalancer
   project: default
