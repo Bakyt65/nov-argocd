@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: 'https://charts.bitnami.com/bitnami'
     chart: nginx
-    targetRevision: 20.0.0
+    targetRevision: 17.1.0
     helm:
       values: |                   # Helm values need to be under the "helm" section
         replicaCount: 2
